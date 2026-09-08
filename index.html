@@ -29,6 +29,39 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, #004080 0%, #001a33 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: 1.8rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: #e67e22;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* 土地アコーディオン用スタイル */
         .land-toggle-container {
             border: 2px solid #004080;
             border-radius: 12px;
@@ -117,9 +150,57 @@
         table.land-table tr:nth-child(even) {
             background-color: #f8fafc;
         }
-        .loading-text {
+
+        /* 共通タイトル・コンポーネント */
+        .section-title {
+            font-size: 1.4rem;
+            color: #004080;
+            border-bottom: 3px solid #004080;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #004080;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            color: #004080;
+            margin-bottom: 8px;
+        }
+        
+        /* 問い合わせフォーム */
+        .cta-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto 0;
+            background: #e67e22;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(230,126,34,0.3);
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+        footer {
             text-align: center;
             padding: 20px;
+            font-size: 0.85rem;
             color: #666;
         }
     </style>
@@ -127,6 +208,14 @@
 <body>
 
 <div class="battery-lp">
+
+    <!-- ヒーローセクション -->
+    <header class="hero">
+        <span class="hero-tag">安定運用×高利回り</span>
+        <h1>低圧系統用蓄電池ビジネス投資のご案内</h1>
+        <p>わずか3坪から運用可能。再生可能エネルギーの未来を支える次世代資産運用</p>
+    </header>
+
     <!-- 土地リストアコーディオン -->
     <div class="land-toggle-container">
         <div class="land-header">
@@ -134,7 +223,7 @@
                 <span class="tag-orange">土地をお持ちでない方へ</span>
                 <span class="land-title">【随時更新】低圧蓄電池 専用事業用地リスト</span>
             </div>
-            <button class="btn-toggle" id="toggleBtn" onclick="toggleLandContent()">
+            <button class="btn-toggle" onclick="toggleLandContent()">
                 <span id="toggleText">開く / 閉じる</span> ▼
             </button>
         </div>
@@ -161,6 +250,41 @@
             </div>
         </div>
     </div>
+
+    <!-- 事業の特徴 -->
+    <section>
+        <h2 class="section-title">低圧蓄電池投資が選ばれる理由</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>1. 省スペース・低コスト参入</h3>
+                <p>わずか3坪程度の余剰地や狭小地から設置可能。大規模な土地購入リスクを抑えて運用を開始できます。</p>
+            </div>
+            <div class="card">
+                <h3>2. 安定した収益モデル</h3>
+                <p>電力供給の調整力として需要が高まる電力市場。独自の売電・充放電最適化システムで安定した利回りを狙います。</p>
+            </div>
+            <div class="card">
+                <h3>3. ワンストップ開発体制</h3>
+                <p>土地選定・系統申請・機器設置・メンテナンスまで、経験豊富な当社がワンストップでサポートします。</p>
+            </div>
+            <div class="card">
+                <h3>4. 環境貢献・脱炭素社会の推進</h3>
+                <p>再生可能エネルギーの出力抑制を防止し、日本のグリーンエネルギー転換に直接貢献するサステナブル投資です。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせ・資料請求 -->
+    <section style="text-align: center;">
+        <h2 class="section-title">詳細資料・個別ご相談はこちら</h2>
+        <p>事業計画、詳しい収益シミュレーション、新規の専用用地情報などをお届けします。</p>
+        <a href="#contact" class="cta-btn">お問い合わせ・資料請求（無料）</a>
+    </section>
+
+    <footer>
+        <p>&copy; 株式会社MEIZEN All Rights Reserved.</p>
+    </footer>
+
 </div>
 
 <script>
@@ -173,32 +297,49 @@ function toggleLandContent() {
     }
 }
 
-// Google Visualization API を使用して純粋なCSVを取得（関数混入防止）
-const sheetId = "1vS6ln4ROWVmzaO3FlkyXGrhy-fXlUjvx7AwQ96KvAEF";
-const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+// Googleスプレッドシート CSV取得（JavaScriptゴミデータ完全排除処理つき）
+const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6ln4ROWVmzaO3FlkyXGrhy-fXlUjvx7AwQ96KvAEFOU3UB_aXUPB4vRgGsBa_avD51dOtKG90d9BO/pub?gid=0&single=true&output=csv";
 
 fetch(csvUrl)
     .then(response => response.text())
     .then(csvText => {
-        const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        const lines = csvText.split(/\r?\n/);
         const tbody = document.getElementById('landTableBody');
         tbody.innerHTML = '';
 
-        // ヘッダーを除いたデータ行をループ処理
         let count = 0;
-        for (let i = 1; i < lines.length; i++) {
-            // カンマ区切り（クォーテーション考慮）
-            const row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/^"|"$/g, ''));
-            
-            // 異常な関数コードや空行をスキップする安全フィルター
-            if (row.length < 2 || row[0].includes('function') || row[0].includes('object') || row[0].includes('String.prototype')) {
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+
+            const row = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/^"|"$/g, '').trim());
+
+            const cellA = row[0] || '';
+            const cellB = row[1] || '';
+
+            // ゴミスクリプト・関数混入の行を100%遮断
+            if (
+                cellA.includes('function') || 
+                cellA.includes('typeof') || 
+                cellA.includes('Object.') || 
+                cellA.includes('String.') || 
+                cellA.includes('prototype') ||
+                cellB.includes('function') ||
+                cellA.length > 50
+            ) {
+                continue;
+            }
+
+            // ヘッダー行の除外
+            if (cellA.includes('物件ID') || cellA.includes('ID')) {
                 continue;
             }
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${row[0] || '-'}</td>
-                <td>${row[1] || '-'}</td>
+                <td>${cellA || '-'}</td>
+                <td>${cellB || '-'}</td>
                 <td>${row[2] || '-'}</td>
             `;
             tbody.appendChild(tr);
@@ -206,11 +347,11 @@ fetch(csvUrl)
         }
 
         if (count === 0) {
-            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px;">表示できる土地データがありません。</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px;">現在表示できる土地情報はありません。</td></tr>';
         }
     })
     .catch(error => {
-        console.error('Error fetching sheet:', error);
+        console.error('Error:', error);
         document.getElementById('landTableBody').innerHTML = '<tr><td colspan="3" style="text-align:center; color:red; padding:20px;">データの読み込みに失敗しました。</td></tr>';
     });
 </script>
