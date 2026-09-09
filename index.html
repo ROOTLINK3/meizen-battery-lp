@@ -605,12 +605,19 @@ document.addEventListener("DOMContentLoaded", function() {
   fetch(csvUrl)
     .then(response => response.text())
     .then(csvText => {
+      // レスポンスがHTMLエラー画面やスクリプトになっていないか判定
+      if (csvText.includes("<!DOCTYPE html") || csvText.includes("function") || csvText.trim().startsWith("<")) {
+        document.getElementById("spreadsheet-land-list").innerHTML = 
+          '<tr><td colspan="6" style="padding:20px; text-align:center;">現在掲載中の物件情報はございません。</td></tr>';
+        return;
+      }
+
       const rows = csvText.trim().split("\n").map(row => row.split(","));
       const tbody = document.getElementById("spreadsheet-land-list");
 
       const dataRows = rows.slice(1);
 
-      if (!dataRows || dataRows.length === 0 || (dataRows.length === 1 && dataRows[0][0] === "")) {
+      if (!dataRows || dataRows.length === 0 || (dataRows.length === 1 && dataRows[0][0].trim() === "")) {
         tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center;">現在掲載中の物件情報はございません。</td></tr>';
         return;
       }
