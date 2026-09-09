@@ -116,7 +116,7 @@
         }
         .land-content {
             padding: 20px;
-            display: block; /* 初期表示 */
+            display: block;
         }
         .land-subtitle {
             font-size: 0.85rem;
@@ -272,6 +272,10 @@
                 <h3>3. ワンストップ開発体制</h3>
                 <p>土地選定・系統申請・機器設置・メンテナンスまで、経験豊富な当社がワンストップでサポートします。</p>
             </div>
+            <div class="card">
+                <h3>4. 環境貢献・脱炭素社会の推進</h3>
+                <p>再生可能エネルギーの出力制御問題を解消し、持続可能な社会作りに直接寄与するサステナブルな投資です。</p>
+            </div>
         </div>
     </section>
 
@@ -288,11 +292,11 @@
     </section>
 
     <!-- CALL TO ACTION -->
-    <section style="background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);">
+    <section id="contact" style="background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);">
         <h2>まずはお気軽にお問い合わせください</h2>
         <p style="text-align: center; margin-bottom: 20px;">土地をお持ちの方も、土地から探したい方も、専門スタッフが最適なプランをご提案いたします。</p>
         <div class="cta-container">
-            <a href="#contact" class="cta-btn">お問い合わせ・資料請求（無料）</a>
+            <a href="mailto:info@meizen.co.jp" class="cta-btn">お問い合わせ・資料請求（無料）</a>
         </div>
     </section>
 
@@ -313,13 +317,12 @@ function toggleLandContent() {
     }
 }
 
-// Googleスプレッドシート Gviz API連携
+// Googleスプレッドシート Gviz API（JavaScript完全対応）
 const csvUrl = "https://docs.google.com/spreadsheets/d/1vS6ln4ROWVmzaO3FlkyXGrhy-fXlUjvx7AwQ96KvAEF/gviz/tq?tqx=out:csv";
 
 fetch(csvUrl)
     .then(response => response.text())
     .then(csvText => {
-        // 行ごとに分割
         const lines = csvText.split(/\r\n|\n/);
         const tbody = document.getElementById('landTableBody');
         tbody.innerHTML = '';
@@ -330,7 +333,6 @@ fetch(csvUrl)
             const line = lines[i].trim();
             if (!line) continue;
 
-            // CSVのカンマ区切り（クォーテーション考慮）
             const row = line.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/).map(cell => cell.replace(/^\"|\"$/g, ''));
 
             const cellA = row[0] || '';
