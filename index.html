@@ -2,6 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>低圧蓄電池ビジネス投資</title>
 <style>
 /* LP全体スタイル */
 .battery-lp {
@@ -452,7 +454,7 @@
 <div class="cta-btn-group">
 <div class="btn-wrapper"><a class="btn-cta" href="#summary-dl">サマリー資料（PDF）をダウンロード（※作成中）</a>
 <span class="btn-sub-text">※設備のスペック・収支シミュレーション・融資相談に活用いただけます</span></div>
-<div class="btn-wrapper"><a class="btn-cta secondary" href="#contact-section">ご質問・ご相談はこちら</a>
+<div class="btn-wrapper"><a class="btn-cta secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform" target="_blank" rel="noopener">ご質問・ご相談はこちら</a>
 <span class="btn-sub-text" style="color: #ffffff;">※メール・フォームにてお問い合わせをお受けします</span></div>
 </div>
 </div>
@@ -558,7 +560,7 @@
 </div>
 </section>
 
-<!-- 7. 専用事業用地リスト（GoogleスプレッドシートCSV直接自動連携） -->
+<!-- 7. 専用事業用地リスト -->
 <details class="land-details-block" open>
   <summary class="land-details-summary">
     <span><span class="summary-badge">土地をお持ちでない方へ</span>【随時更新】低圧蓄電池 専用事業用地リスト</span>
@@ -605,7 +607,6 @@ document.addEventListener("DOMContentLoaded", function() {
   fetch(csvUrl)
     .then(response => response.text())
     .then(csvText => {
-      // レスポンスがHTMLエラー画面やスクリプトになっていないか判定
       if (csvText.includes("<!DOCTYPE html") || csvText.includes("function") || csvText.trim().startsWith("<")) {
         document.getElementById("spreadsheet-land-list").innerHTML = 
           '<tr><td colspan="6" style="padding:20px; text-align:center;">現在掲載中の物件情報はございません。</td></tr>';
@@ -631,7 +632,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const size = cleanRow[2] || "-";
         const price = cleanRow[3] || "-";
         const category = cleanRow[4] || "-";
-        const link = cleanRow[5] && cleanRow[5] !== "-" ? cleanRow[5] : "#contact-section";
+        const link = cleanRow[5] && cleanRow[5] !== "-" ? cleanRow[5] : "https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform";
 
         const bgStyle = (index % 2 === 1) ? 'background: #fdfdfd;' : '';
 
@@ -643,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <td style="padding: 12px; font-weight: bold; color: #119da4;">${price}</td>
             <td style="padding: 12px;">${category}</td>
             <td style="padding: 12px;">
-              <a href="${link}" style="background: #ee964b; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">資料DL / 仮申込</a>
+              <a href="${link}" target="_blank" rel="noopener" style="background: #ee964b; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">資料DL / 仮申込</a>
             </td>
           </tr>
         `;
@@ -666,7 +667,7 @@ document.addEventListener("DOMContentLoaded", function() {
     「3坪〜」「住宅地として売りにくい格安地」「山林・原野・雑種地」など、処分や運用にお困りの土地情報を募集しています。<br />
     MEIZENの蓄電池ネットワークで「土地＋設備」のセット案件として早期マッチング・現金化をお手伝いします。
   </p>
-  <a href="#contact-section" style="background: #0d3b66; color: #ffffff; text-decoration: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; font-size: 14px; display: inline-block;">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform" target="_blank" rel="noopener" style="background: #0d3b66; color: #ffffff; text-decoration: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; font-size: 14px; display: inline-block;">
     土地情報の持ち込み・掲載依頼はこちら
   </a>
 </div>
@@ -746,7 +747,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div style="text-align: center; margin-top: 30px;">
-  <a class="btn-cta download" href="#" download>電力申請書様式をダウンロード（申込）</a>
+  <a class="btn-cta download" href="https://docs.google.com/forms/d/e/1FAIpQLScm1oc1gz1LSJRjrAFK7uvKVNgkfAGiZEDe_05OuLGNXoTM3g/viewform" target="_blank" rel="noopener">電力申請書様式をダウンロード（申込）</a>
   <div style="font-size: 12px; color: #666666; margin-top: 6px;">※必要事項をご記入の上、ご提出いただけます</div>
 </div>
 </section>
@@ -815,12 +816,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- 11. CTA -->
 <section id="contact-section" style="background: #f4f7f6; text-align: center;">
-<h2 style="font-size: 22px !important; color: #222222 !important; text-align: left !important; margin: 0 0 20px 0 !important; padding: 12px 18px !important; background-color: #f0f7fa !important; border-left: 6px solid #119da4 !important; border-top: none !important; border-right: none !important; border-bottom: none !important; border-radius: 0 8px 8px 0 !important; display: block !important; width: 100% !important; box-sizing: border-box !important; line-height: 1.4 !important; font-weight: bold !important;">まずはお気軽にお問い合わせください</h2>
-<p style="margin-bottom: 20px;">ご質問・ご相談、土地の仮申込、不動産パートナー提携のご連絡は下記より承ります。</p>
-
-<div class="cta-btn-group" style="margin-top: 25px;">
-  <a class="btn-cta" href="#process-section">低圧蓄電池のお申し込み・流れを見る</a>
-  <a class="btn-cta dark" href="#summary-dl">サマリー資料（PDF）をダウンロード（※作成中）</a>
+<h2 style="font-size: 22px !important; color: #222222 !important; text-align: left !important; margin: 0 0 20px 0 !important; padding: 12px 18px !important; background-color: #f0f7fa !important; border-left: 6px solid #119da4 !important; border-top: none !important; border-right: none !important; border-bottom: none !important; border-radius: 0 8px 8px 0 !important; display: block !important; width: 100% !important; box-sizing: border-box !important; line-height: 1.4 !important; font-weight: bold !important;">お問い合わせ・ご相談</h2>
+<p style="margin-bottom: 25px;">低圧蓄電池投資に関するご質問、シミュレーションのご依頼、事業用地の持ち込みなど、お気軽にお問い合わせください。</p>
+<div class="cta-btn-group">
+<div class="btn-wrapper"><a class="btn-cta secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform" target="_blank" rel="noopener">ご質問・ご相談はこちら</a></div>
+<div class="btn-wrapper"><a class="btn-cta download" href="https://docs.google.com/forms/d/e/1FAIpQLScm1oc1gz1LSJRjrAFK7uvKVNgkfAGiZEDe_05OuLGNXoTM3g/viewform" target="_blank" rel="noopener">電力申請申込フォーム</a></div>
 </div>
 </section>
 
