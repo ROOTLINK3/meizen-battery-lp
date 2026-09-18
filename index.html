@@ -738,6 +738,132 @@
     </p>
   </div>
 </details>
+
+<!-- 土地情報 持ち込み・パートナー窓口セクション -->
+<section id="land-management" style="margin-top: 40px; padding: 30px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #cbd5e1;">
+  <h2 style="font-size: 1.5rem; color: #0d3b66; border-bottom: 3px solid #119da4; padding-bottom: 10px; margin-bottom: 20px;">
+    📍 低圧蓄電池用地 持ち込み受付フォーム
+  </h2>
+  <p style="color: #475569; margin-bottom: 25px; font-size: 0.95rem;">
+    小規模用地（5〜10坪程度〜）の情報をお寄せください。<br>
+    ※送信時、<strong>自動で物件IDが割り振られます</strong>。公表可能項目（物件ID・所在地・面積・価格・地目）のみ上のリストへ自動反映され、会社名・連絡先・添付資料（登記簿/公図等）は内部管理用として厳重に保管されます。
+  </p>
+
+  <form id="landSubmitForm" style="display: flex; flex-direction: column; gap: 20px;">
+    
+    <!-- 1. 申請者情報（内部のみ） -->
+    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">1. 持ち込み事業者様情報（非公開・内部管理専用）</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">ご担当者名 / 会社名 *</label>
+          <input type="text" id="compName" required placeholder="例: 株式会社三和不動産" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">連絡先メールアドレス *</label>
+          <input type="email" id="compEmail" required placeholder="info@example.com" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 土地スペック（公開＋管理用） -->
+    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">2. 土地基本スペック</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 12px;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">物件所在地（市町村・大字まで） *</label>
+          <input type="text" id="landLoc" required placeholder="例: 熊本県玉名市大倉" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">概算土地面積 *</label>
+          <input type="text" id="landArea" required placeholder="例: 8坪 / 30㎡" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">地目 *</label>
+          <input type="text" id="landType" required placeholder="例: 雑種地 / 山林 / 宅地" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">希望価格 / 賃料</label>
+          <input type="text" id="landPrice" placeholder="例: 売り 100万円 / 賃料 月3万円" style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 属性チェック項目 -->
+    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">3. 土地属性チェック</h3>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.9rem;">
+        <label><input type="checkbox" id="attrHazard" value="ハザード外"> ハザードマップ外</label>
+        <label><input type="checkbox" id="attrFlat" value="平坦地"> 平坦地</label>
+        <label><input type="checkbox" id="attrRoad" value="接道3m以上"> 接道3m以上あり</label>
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">隣接住居との距離</label>
+        <input type="text" id="neighborDist" placeholder="例: 約 20m" style="width: 200px; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+    </div>
+
+    <!-- 4. 添付資料（Googleドライブ格納用） -->
+    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+      <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">4. 内部資料添付（登記簿・公図・位置座標・現場写真）</h3>
+      <p style="font-size: 0.8rem; color: #64748b; margin-top: 0; margin-bottom: 10px;">※Googleドライブの専用フォルダに格納されます（非公開）</p>
+      
+      <div id="fileDropZone" style="border: 2px dashed #94a3b8; border-radius: 6px; padding: 25px; text-align: center; background: #ffffff; cursor: pointer; transition: background 0.2s;">
+        <p id="dropText" style="margin: 0; color: #64748b; font-size: 0.9rem;">
+          📂 ここに資料（登記簿PDF、公図、位置座標データ、現場写真など）をドラッグ＆ドロップ<br>
+          <span style="font-size: 0.8rem; color: #94a3b8;">またはクリックしてファイル選択</span>
+        </p>
+        <input type="file" id="fileInput" multiple style="display: none;">
+      </div>
+      <ul id="fileList" style="font-size: 0.85rem; color: #2563eb; margin-top: 8px; padding-left: 20px;"></ul>
+    </div>
+
+    <button type="submit" style="background: linear-gradient(135deg, #0d3b66, #119da4); color: white; border: none; padding: 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1.05rem; box-shadow: 0 4px 10px rgba(13, 59, 102, 0.2);">
+      物件IDを発行して掲載申請する
+    </button>
+  </form>
+</section>
+
+<script>
+  // ファイルドロップゾーン制御
+  const dropZone = document.getElementById('fileDropZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileList = document.getElementById('fileList');
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#e0f2fe'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#ffffff'; });
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.background = '#ffffff';
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+  function handleFiles(files) {
+    fileList.innerHTML = '';
+    for (let i = 0; i < files.length; i++) {
+      const li = document.createElement('li');
+      li.textContent = files[i].name;
+      fileList.appendChild(li);
+    }
+  }
+
+  // 簡易ID自動付与 ＆ 送信時テスト処理
+  document.getElementById('landSubmitForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // 物件IDの自動生成（例: MEI-8392 のようなランダム数値付きID）
+    const generatedID = 'MEI-' + Math.floor(1000 + Math.random() * 9000);
+    
+    alert('【申請受付完了】\n発行物件ID: ' + generatedID + '\n\nご提出ありがとうございます。上のリストおよび管理スプレッドシートへ反映されます。');
+    this.reset();
+    fileList.innerHTML = '';
+  });
+</script>
+	
 <!-- 既存の破線ボックス内 -->
 <div class="...">
   ...
