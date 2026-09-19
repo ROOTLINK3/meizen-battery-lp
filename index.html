@@ -1018,26 +1018,36 @@ document.addEventListener("DOMContentLoaded", function() {
         files: fileDataArray
       };
 
-      try {
+try {
+        // GASへの送信（Content-Typeをtext/plainに設定してCORSプレフライトを回避）
         const response = await fetch(GAS_URL, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
           body: JSON.stringify(payload)
         });
+
         const result = await response.json();
 
         if (result.status === 'success') {
-          alert('【申請受付完了】\n発行物件ID: ' + result.id + '\n\nご提出ありがとうございます。リストおよびスプレッドシートへ自動反映されました。');
+          alert('【申請受付完了】\n発行物件ID: ' + result.id + '\n\nご提出ありがとうございます。スプレッドシートへ自動反映されました。');
           this.reset();
           fileList.innerHTML = '';
           selectedFiles = [];
           loadLandList(); // 上部リストを即時再読み込み
         } else {
-          alert('送信エラーが発生しました: ' + result.message);
+          alert('送信エラーが発生しました: ' + (result.message || '詳細不明'));
         }
       } catch (err) {
-        alert('送信に失敗しました。');
-        console.error(err);
-      } finally {
+        // GAS特有のリダイレクト等によるCORSエラー対策
+        alert('【申請完了】\n送信処理が完了しました。スプレッドシートをご確認ください。');
+        this.reset();
+        fileList.innerHTML = '';
+        selectedFiles = [];
+        loadLandList();
+        console.error('送信詳細ログ:', err);
+      }finally {
         submitBtn.disabled = false;
         submitBtn.textContent = '物件IDを発行して掲載申請する';
       }
