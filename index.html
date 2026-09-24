@@ -908,13 +908,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </div>
 <script>
-  // ファイルドロップゾーン制御
+  // 1. ファイルドロップゾーン制御
   const dropZone = document.getElementById('fileDropZone');
   const fileInput = document.getElementById('fileInput');
   const fileList = document.getElementById('fileList');
   let selectedFiles = [];
 
-  if (dropZone) {
+  if (dropZone && fileInput) {
     dropZone.addEventListener('click', () => fileInput.click());
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#e0f2fe'; });
     dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#ffffff'; });
@@ -927,8 +927,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function handleFiles(files) {
-    selectedFiles = Array.from(files);
     fileList.innerHTML = '';
+    selectedFiles = Array.from(files);
     selectedFiles.forEach(file => {
       const li = document.createElement('li');
       li.textContent = file.name;
@@ -936,123 +936,72 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-	
-  // GAS Web App URL
- const GAS_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec；
-	
-  // 1. ページ読み込み時にスプレッドシートから物件リストを自動取得
-  async function loadLandList() {
-    try {
-      const response = await fetch(GAS_URL);
-      const landData = await response.json();
-      
-      const tbody = document.querySelector('table tbody');
-      if (!tbody) return;
-
-      if (!landData || landData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">現在掲載中の物件情報はございません。</td></tr>';
-        return;
-      }
-
-      tbody.innerHTML = '';
-      landData.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">${item.id || '-'}</td>
-          <td style="padding: 10px; border: 1px solid #cbd5e1;">${item.location || '-'}</td>
-          <td style="padding: 10px; border: 1px solid #cbd5e1;">${item.area || '-'}</td>
-          <td style="padding: 10px; border: 1px solid #cbd5e1;">${item.price || '-'}</td>
-          <td style="padding: 10px; border: 1px solid #cbd5e1;">${item.type || '-'}</td>
-          <td style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">${item.status || '掲載中'}</span></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    } catch (err) {
-      console.error('データ取得エラー:', err);
-    }
+  // 2. ファイルのBase64変換関数
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve({ name: file.name, type: file.type, base64: reader.result });
+      reader.onerror = error => reject(error);
+    });
   }
 
-  // 初期読み込み実行
-  document.addEventListener('DOMContentLoaded', loadLandList);
-
-  // 2. フォーム送信処理（GASへデータ＆ファイルを送信）
-  const landSubmitForm = document.getElementById('landSubmitForm');
-  if (landSubmitForm) {
-    landSubmitForm.addEventListener('submit', async function(e) {
+  // 3. フォーム送信処理（GASへデータをPOST送信）
+  const landForm = document.getElementById('landSubmitForm');
+  if (landForm) {
+    landForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const submitBtn = this.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
-      submitBtn.textContent = '送信中...';
+      submitBtn.textContent = "送信中...";
 
-      // 属性チェックのまとめ
-      const attrs = [];
-      if (document.getElementById('attrHazard')?.checked) attrs.push('ハザード外');
-      if (document.getElementById('attrFlat')?.checked) attrs.push('平坦地');
-      if (document.getElementById('attrRoad')?.checked) attrs.push('接道3m以上');
+      try {
+        // 土地属性チェックの取得
+        const attrs = [];
+        if (document.getElementById('attrHazard')?.checked) attrs.push('ハザード外');
+        if (document.getElementById('attrFlat')?.checked) attrs.push('平坦地');
+        if (document.getElementById('attrRoad')?.checked) attrs.push('接道3m以上');
 
-      // ファイルのBase64エンコード処理
-      const filePromises = selectedFiles.map(file => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            resolve({
-              name: file.name,
-              type: file.type,
-              base64: reader.result.split(',')[1]
-            });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
+        // 添付ファイルのBase64化
+        const fileDataList = await Promise.all(selectedFiles.map(file => fileToBase64(file)));
 
-      const fileDataArray = await Promise.all(filePromises);
+        // 送信ペイロード構築
+        const payload = {
+          compName: document.getElementById('compName').value,
+          compEmail: document.getElementById('compEmail').value,
+          landLoc: document.getElementById('landLoc').value,
+          landArea: document.getElementById('landArea').value,
+          landType: document.getElementById('landType').value,
+          landPrice: document.getElementById('landPrice').value,
+          attributes: attrs.join(', '),
+          neighborDist: document.getElementById('neighborDist').value,
+          files: fileDataList
+        };
 
-      const payload = {
-        compName: document.getElementById('compName')?.value || '',
-        compEmail: document.getElementById('compEmail')?.value || '',
-        landLoc: document.getElementById('landLoc')?.value || '',
-        landArea: document.getElementById('landArea')?.value || '',
-        landType: document.getElementById('landType')?.value || '',
-        landPrice: document.getElementById('landPrice')?.value || '',
-        attributes: attrs.join(', '),
-        neighborDist: document.getElementById('neighborDist')?.value || '',
-        files: fileDataArray
-      };
+        // GAS Web API URL
+        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec';
 
-try {
-        // GASへの送信（Content-Typeをtext/plainに設定してCORSプレフライトを回避）
-        const response = await fetch(GAS_URL, {
+        // 非同期データ送信
+        await fetch(GAS_API_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain'
-          },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
-
-        if (result.status === 'success') {
-          alert('【申請受付完了】\n発行物件ID: ' + result.id + '\n\nご提出ありがとうございます。スプレッドシートへ自動反映されました。');
-          this.reset();
-          fileList.innerHTML = '';
-          selectedFiles = [];
-          loadLandList(); // 上部リストを即時再読み込み
-        } else {
-          alert('送信エラーが発生しました: ' + (result.message || '詳細不明'));
-        }
-      } catch (err) {
-        // GAS特有のリダイレクト等によるCORSエラー対策
-        alert('【申請完了】\n送信処理が完了しました。スプレッドシートをご確認ください。');
+        alert('【送信完了】\n物件情報と資料の送信が完了しました。\nスプレッドシートおよびGoogleドライブへ即座に反映されます。');
         this.reset();
         fileList.innerHTML = '';
         selectedFiles = [];
-        loadLandList();
-        console.error('送信詳細ログ:', err);
-      }finally {
+
+      } catch (err) {
+        alert('送信中にエラーが発生しました: ' + err.message);
+      } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = '物件IDを発行して掲載申請する';
+        submitBtn.textContent = "物件IDを発行して掲載申請する";
       }
     });
   }
-</script></body>
+</script>
+</body>
 </html>
