@@ -389,6 +389,23 @@
   flex-shrink: 0;
 }
 
+/* 掲載中物件リスト */
+.land-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+}
+.land-list-table th {
+  background: #0d3b66;
+  color: #ffffff;
+  padding: 12px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #0d3b66;
+}
+
 /* レスポンシブ */
 @media (max-width: 600px) {
   .lp-hero h1 { font-size: 24px !important; }
@@ -546,6 +563,28 @@
 </div>
 </section>
 
+<!-- 7. 掲載中の事業用地リスト（公開用タブのCSVから自動表示） -->
+<section id="land-list">
+<h2 style="font-size: 22px !important; color: #222222 !important; text-align: left !important; margin: 0 0 20px 0 !important; padding: 12px 18px !important; background-color: #f0f7fa !important; border-left: 6px solid #119da4 !important; border-top: none !important; border-right: none !important; border-bottom: none !important; border-radius: 0 8px 8px 0 !important; display: block !important; width: 100% !important; box-sizing: border-box !important; line-height: 1.4 !important; font-weight: bold !important;">掲載中の事業用地</h2>
+<p style="margin-bottom: 20px; font-size: 14px; color: #475569;">持ち込みいただいた用地のうち、掲載中の物件です。詳細資料のご請求・仮申込は各物件のボタンからどうぞ。</p>
+<div style="overflow-x: auto;">
+  <table class="land-list-table">
+    <thead>
+      <tr>
+        <th>物件ID</th>
+        <th>所在地</th>
+        <th>面積</th>
+        <th>価格・賃料</th>
+        <th>地目</th>
+        <th>お問い合わせ</th>
+      </tr>
+    </thead>
+    <tbody id="spreadsheet-land-list">
+      <tr><td colspan="6" style="padding: 20px; text-align: center; color: #64748b;">物件情報を読み込んでいます…</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
 
 <!-- 土地情報 持ち込み・パートナー窓口セクション -->
 <section id="land-management" style="margin-top: 40px; padding: 30px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #cbd5e1;">
@@ -558,7 +597,7 @@
   </p>
 
   <form id="landSubmitForm" style="display: flex; flex-direction: column; gap: 20px;">
-    
+
     <!-- 1. 申請者情報（内部のみ） -->
     <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
       <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">1. 持ち込み事業者様情報（非公開・内部管理専用）</h3>
@@ -617,7 +656,7 @@
     <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
       <h3 style="font-size: 1rem; color: #0d3b66; margin-top: 0; margin-bottom: 10px;">4. 内部資料添付（登記簿・公図・位置座標・現場写真）</h3>
       <p style="font-size: 0.8rem; color: #64748b; margin-top: 0; margin-bottom: 10px;">※Googleドライブの専用フォルダに格納されます（非公開）</p>
-      
+
       <div id="fileDropZone" style="border: 2px dashed #94a3b8; border-radius: 6px; padding: 25px; text-align: center; background: #ffffff; cursor: pointer; transition: background 0.2s;">
         <p id="dropText" style="margin: 0; color: #64748b; font-size: 0.9rem;">
           📂 ここに資料（登記簿PDF、公図、位置座標データ、現場写真など）をドラッグ＆ドロップ<br>
@@ -633,114 +672,6 @@
     </button>
   </form>
 </section>
-
-<script>
-  // ファイルドロップゾーン制御
-  const dropZone = document.getElementById('fileDropZone');
-  const fileInput = document.getElementById('fileInput');
-  const fileList = document.getElementById('fileList');
-
-  dropZone.addEventListener('click', () => fileInput.click());
-  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#e0f2fe'; });
-  dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#ffffff'; });
-  dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.style.background = '#ffffff';
-    handleFiles(e.dataTransfer.files);
-  });
-  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
-
-  function handleFiles(files) {
-    fileList.innerHTML = '';
-    for (let i = 0; i < files.length; i++) {
-      const li = document.createElement('li');
-      li.textContent = files[i].name;
-      fileList.appendChild(li);
-    }
-  }
-
-  // 簡易ID自動付与 ＆ 送信時テスト処理
-  document.getElementById('landSubmitForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // 物件IDの自動生成（例: MEI-8392 のようなランダム数値付きID）
-    const generatedID = 'MEI-' + Math.floor(1000 + Math.random() * 9000);
-    
-    alert('【申請受付完了】\n発行物件ID: ' + generatedID + '\n\nご提出ありがとうございます。上のリストおよび管理スプレッドシートへ反映されます。');
-    this.reset();
-    fileList.innerHTML = '';
-  });
-</script>
-	
-<!-- 既存の破線ボックス内 -->
-<div class="...">
-  ...
-  <a class="..." href="...">土地情報の持ち込み・掲載依頼はこちら</a>
-  
-  <!-- 【ここへ挿入】先ほどお渡ししたフォーム＆カードのコード -->
-  
-</div>
-	
-<!-- CSVダイレクト読み込みスクリプト -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6ln4ROWVmzaO3FlkyXGrhy-fXlUjvx7AwQ96KvAEFOU3UB_aXUPB4vRgGsBa_avD51dOtKG90d9BO/pub?gid=0&single=true&output=csv";
-
-  fetch(csvUrl)
-    .then(response => response.text())
-    .then(csvText => {
-      if (csvText.includes("<!DOCTYPE html") || csvText.includes("function") || csvText.trim().startsWith("<")) {
-        document.getElementById("spreadsheet-land-list").innerHTML = 
-          '<tr><td colspan="6" style="padding:20px; text-align:center;">現在掲載中の物件情報はございません。</td></tr>';
-        return;
-      }
-
-      const rows = csvText.trim().split("\n").map(row => row.split(","));
-      const tbody = document.getElementById("spreadsheet-land-list");
-
-      const dataRows = rows.slice(1);
-
-      if (!dataRows || dataRows.length === 0 || (dataRows.length === 1 && dataRows[0][0].trim() === "")) {
-        tbody.innerHTML = '<tr><td colspan="6" style="padding:20px; text-align:center;">現在掲載中の物件情報はございません。</td></tr>';
-        return;
-      }
-
-      let htmlContent = "";
-      dataRows.forEach((row, index) => {
-        const cleanRow = row.map(cell => cell ? cell.replace(/^"|"$/g, '').trim() : '-');
-        
-        const id = cleanRow[0] || "-";
-        const area = cleanRow[1] || "-";
-        const size = cleanRow[2] || "-";
-        const price = cleanRow[3] || "-";
-        const category = cleanRow[4] || "-";
-        const link = cleanRow[5] && cleanRow[5] !== "-" ? cleanRow[5] : "https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform";
-
-        const bgStyle = (index % 2 === 1) ? 'background: #fdfdfd;' : '';
-
-        htmlContent += `
-          <tr style="text-align: center; border-bottom: 1px solid #e2e8f0; ${bgStyle}">
-            <td style="padding: 12px; font-weight: bold; color: #0d3b66;">${id}</td>
-            <td style="padding: 12px;">${area}</td>
-            <td style="padding: 12px;">${size}</td>
-            <td style="padding: 12px; font-weight: bold; color: #119da4;">${price}</td>
-            <td style="padding: 12px;">${category}</td>
-            <td style="padding: 12px;">
-              <a href="${link}" target="_blank" rel="noopener" style="background: #ee964b; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">資料DL / 仮申込</a>
-            </td>
-          </tr>
-        `;
-      });
-
-      tbody.innerHTML = htmlContent;
-    })
-    .catch(error => {
-      console.error("Error loading CSV:", error);
-      document.getElementById("spreadsheet-land-list").innerHTML = 
-        '<tr><td colspan="6" style="padding:20px; text-align:center; color:#c0392b;">物件データの読み込みに失敗しました。</td></tr>';
-    });
-});
-</script>
 
 <!-- 不動産業者向け パートナー募集枠 -->
 <div style="background: #ffffff; border: 2px dashed #119da4; border-radius: 8px; padding: 25px 20px; text-align: center; margin-bottom: 40px;">
@@ -829,7 +760,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div style="text-align: center; margin-top: 30px;">
-<a class="btn-cta download" href="https://docs.google.com/forms/d/e/1FAIpQLScm1oc1gz1LSJRjrAFK7uvKVNgkfAGiZEDe_05OuLGNXoTM3g/viewform" target="_blank" rel="noopener">電力申請書様式をダウンロード (PDF) </a> 
+<a class="btn-cta download" href="https://docs.google.com/forms/d/e/1FAIpQLScm1oc1gz1LSJRjrAFK7uvKVNgkfAGiZEDe_05OuLGNXoTM3g/viewform" target="_blank" rel="noopener">電力申請書様式をダウンロード (PDF) </a>
 <div style="font-size: 12px; color: #666666; margin-top: 6px;">※閲覧・ダウンロードの上、記入用にご利用いただけます</div>
 </div>
 </section>
@@ -902,12 +833,24 @@ document.addEventListener("DOMContentLoaded", function() {
 <p style="margin-bottom: 25px;">低圧蓄電池投資に関するご質問、シミュレーションのご依頼、事業用地の持ち込みなど、お気軽にお問い合わせください。</p>
 <div class="cta-btn-group">
 <div class="btn-wrapper"><a class="btn-cta secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform" target="_blank" rel="noopener">ご質問・ご相談はこちら</a></div>
-<div class="btn-wrapper"><a class="btn-cta download" href="https://drive.google.com/file/d/13S78uiUt1zhtld45ZwaBtJiMFOjhpxmA/view?usp=sharing target="_blank" rel="noopener">電力申請書様式をダウンロード（PDF）</a></div>
+<div class="btn-wrapper"><a class="btn-cta download" href="https://drive.google.com/file/d/13S78uiUt1zhtld45ZwaBtJiMFOjhpxmA/view?usp=sharing" target="_blank" rel="noopener">電力申請書様式をダウンロード（PDF）</a></div>
 </div>
 </section>
 
-</div><script>
-  // 1. ファイルドロップゾーン制御
+</div>
+
+<script>
+  // ===== 設定 =====
+  // GAS Web API URL（デプロイを「新しいバージョン」で更新すればURLは変わりません）
+  const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec';
+
+  // 公開用タブ「だけ」をウェブに公開したCSVのURLを貼る
+  // ※会社名・メールを含むシート1や「ドキュメント全体」の公開URLは絶対に入れないこと
+  const PUBLIC_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQdpLc-vt0tcSDeo_kE7ESemvK1O0Y36q9BMvzI4NQVae5vDYmxtpPES6Zli3mYcij5QgOetz_fPsNs/pub?gid=997697473&single=true&output=csv';
+
+  const CONTACT_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScf0C7c5MEnUsiMm4YpbwzdPxx5jdADFUnmcibreM8koyIOAQ/viewform';
+
+  // ===== 1. ファイルドロップゾーン制御 =====
   const dropZone = document.getElementById('fileDropZone');
   const fileInput = document.getElementById('fileInput');
   const fileList = document.getElementById('fileList');
@@ -935,7 +878,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // 2. ファイルのBase64変換関数
+  // ===== 2. ファイルのBase64変換 =====
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -945,26 +888,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // 3. フォーム送信処理（GASへデータをPOST送信）
+  // ===== 3. フォーム送信（GASへPOSTし、発行された物件IDを受け取る） =====
   const landForm = document.getElementById('landSubmitForm');
   if (landForm) {
     landForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const submitBtn = this.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
-      submitBtn.textContent = "送信中...";
+      submitBtn.textContent = '送信中...';
 
       try {
-        // 土地属性チェックの取得
         const attrs = [];
         if (document.getElementById('attrHazard')?.checked) attrs.push('ハザード外');
         if (document.getElementById('attrFlat')?.checked) attrs.push('平坦地');
         if (document.getElementById('attrRoad')?.checked) attrs.push('接道3m以上');
 
-        // 添付ファイルのBase64化
         const fileDataList = await Promise.all(selectedFiles.map(file => fileToBase64(file)));
 
-        // 送信ペイロード構築
         const payload = {
           compName: document.getElementById('compName').value,
           compEmail: document.getElementById('compEmail').value,
@@ -977,30 +917,107 @@ document.addEventListener("DOMContentLoaded", function() {
           files: fileDataList
         };
 
-        // GAS Web API URL
-        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec';
-
-        // 非同期データ送信
-        await fetch(GAS_API_URL, {
+        // text/plain で送るとプリフライトが発生せず、GASのレスポンスも読める
+        const res = await fetch(GAS_API_URL, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+        const result = await res.json();
 
-        alert('【送信完了】\n物件情報と資料の送信が完了しました。\nスプレッドシートおよびGoogleドライブへ即座に反映されます。');
+        if (result.status !== 'success') {
+          throw new Error(result.message || '受付処理に失敗しました');
+        }
+
+        alert('【申請受付完了】\n発行物件ID: ' + result.id +
+              '\n\nご提出ありがとうございます。内容を確認のうえ、掲載リストに反映します（反映まで数分かかる場合があります）。');
         this.reset();
         fileList.innerHTML = '';
         selectedFiles = [];
 
       } catch (err) {
-        alert('送信中にエラーが発生しました: ' + err.message);
+        alert('送信できませんでした。時間をおいて再度お試しいただくか、お問い合わせフォームからご連絡ください。\n\n詳細: ' + err.message);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "物件IDを発行して掲載申請する";
+        submitBtn.textContent = '物件IDを発行して掲載申請する';
       }
     });
   }
+
+  // ===== 4. 掲載中リストの読み込み（公開用タブのCSV） =====
+  // セル内のカンマ・改行・ダブルクォートに対応したCSVパーサー
+  function parseCSV(text) {
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; }
+        } else { field += c; }
+      } else if (c === '"') { inQuotes = true; }
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c !== '\r') { field += c; }
+    }
+    if (field !== '' || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  // フォーム入力をそのまま表示するので、HTMLとして解釈されないようエスケープする
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  }
+
+  function renderListMessage(tbody, message, color) {
+    tbody.innerHTML = '<tr><td colspan="6" style="padding: 20px; text-align: center; color: ' + (color || '#64748b') + ';">' + message + '</td></tr>';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const tbody = document.getElementById('spreadsheet-land-list');
+    if (!tbody) return;
+
+    if (!PUBLIC_CSV_URL.startsWith('https://')) {
+      renderListMessage(tbody, '現在掲載中の物件情報はございません。');
+      return;
+    }
+
+    fetch(PUBLIC_CSV_URL)
+      .then(response => response.text())
+      .then(csvText => {
+        if (csvText.trim().startsWith('<')) {
+          renderListMessage(tbody, '現在掲載中の物件情報はございません。');
+          return;
+        }
+
+        // 1行目はヘッダー。列順: 物件ID, 所在地, 面積, 価格・賃料, 地目
+        const dataRows = parseCSV(csvText.trim()).slice(1).filter(r => r[0] && r[0].trim() !== '');
+        if (dataRows.length === 0) {
+          renderListMessage(tbody, '現在掲載中の物件情報はございません。');
+          return;
+        }
+
+        tbody.innerHTML = dataRows.map((row, index) => {
+          const cell = i => escapeHTML((row[i] || '').trim() || '-');
+          const bgStyle = (index % 2 === 1) ? 'background: #fdfdfd;' : '';
+          return `
+            <tr style="text-align: center; border-bottom: 1px solid #e2e8f0; ${bgStyle}">
+              <td style="padding: 12px; font-weight: bold; color: #0d3b66;">${cell(0)}</td>
+              <td style="padding: 12px;">${cell(1)}</td>
+              <td style="padding: 12px;">${cell(2)}</td>
+              <td style="padding: 12px; font-weight: bold; color: #119da4;">${cell(3)}</td>
+              <td style="padding: 12px;">${cell(4)}</td>
+              <td style="padding: 12px;">
+                <a href="${CONTACT_FORM_URL}" target="_blank" rel="noopener" style="background: #ee964b; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block;">資料DL / 仮申込</a>
+              </td>
+            </tr>`;
+        }).join('');
+      })
+      .catch(error => {
+        console.error('Error loading CSV:', error);
+        renderListMessage(tbody, '物件データを読み込めませんでした。ページを再読み込みしてください。', '#c0392b');
+      });
+  });
 </script>
 </body>
 </html>
