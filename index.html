@@ -1,176 +1,388 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>低圧蓄電池用地 持ち込み受付フォーム</title>
+  <title>低圧系統用蓄電池ビジネス投資｜土地持ち込み・パートナー募集</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { font-family: sans-serif; margin: 20px; background-color: #f9fafb; color: #333; }
-    .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    h1, h2 { color: #1e3a8a; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; font-weight: bold; margin-bottom: 5px; }
-    input[type="text"], input[type="email"], input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    .checkbox-group label { font-weight: normal; margin-right: 15px; cursor: pointer; }
-    .drop-zone { border: 2px dashed #0284c7; padding: 20px; text-align: center; border-radius: 6px; cursor: pointer; background-color: #ffffff; transition: background 0.2s; }
-    .drop-zone:hover { background-color: #f0f9ff; }
-    .btn-submit { background-color: #0284c7; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
-    .btn-submit:disabled { background-color: #94a3b8; cursor: not-allowed; }
-    #fileList { margin-top: 10px; list-style-type: square; padding-left: 20px; }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px); }
   </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 antialiased">
 
-<div class="container">
-  <h1>低圧蓄電池用地 持ち込み受付フォーム</h1>
-  <p>小規模用地（5〜10坪程度〜）の情報をお寄せください。</p>
-
-  <form id="landSubmitForm">
-    <h2>1. 持ち込み事業者様情報</h2>
-    <div class="form-group">
-      <label for="compName">ご担当者名 / 会社名 *</label>
-      <input type="text" id="compName" required placeholder="例：株式会社MEIZEN / 戸上">
+  <!-- Header -->
+  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-blue-600 text-white font-black text-xl px-3 py-1 rounded">MEIZEN</div>
+        <span class="text-sm sm:text-base font-bold tracking-wider text-slate-200">低圧系統用蓄電池プロジェクト</span>
+      </div>
+      <a href="#submit-form" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 sm:px-6 sm:py-2.5 rounded-lg text-sm sm:text-base transition-colors shadow-lg">
+        土地を持ち込む
+      </a>
     </div>
-    <div class="form-group">
-      <label for="compEmail">連絡先メールアドレス *</label>
-      <input type="email" id="compEmail" required placeholder="例：info@meizen.co.jp">
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white relative overflow-hidden bg-grid py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full mb-6">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+          地主様・不動産業者様・土地ブローカー様向け
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black leading-tight mb-6">
+          「使えない狭小地」が<br>
+          <span class="text-blue-400">安定した長期的ストック収入</span>を生み出す
+        </h1>
+        <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
+          3坪〜100坪程度の小規模な雑種地・山林・農地転用可能地を募集しています。アパート・マンション投資に代わる新たな不動産活用として、系統用蓄電池事業の用地開発を推進中。割安な不動産活用投資で割安並みの8〜6％の長期安定収益を実現します。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#submit-form" class="bg-blue-600 hover:bg-blue-500 text-white text-center font-bold px-8 py-4 rounded-xl text-lg transition-all shadow-xl hover:shadow-blue-500/25">
+            土地情報を申請する（無料）
+          </a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <h2>2. 土地基本スペック</h2>
-    <div class="form-group">
-      <label for="landLoc">物件所在地（市町村・大字まで） *</label>
-      <input type="text" id="landLoc" required placeholder="例：熊本県玉名市大倉">
+  <!-- Target & Persona -->
+  <section class="py-16 bg-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">このような方におすすめです</h2>
+        <p class="text-gray-600">既存投資家から地主様まで、幅広い活用ニーズに対応しています。</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-slate-800">既存の不動産投資家</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">アパート・マンション建築を諦めていた方、長期的なストック収益のチャンスを求めている方に最適です。</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+            <i class="fa-solid fa-seedling"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-2 text-slate-800">若い世代の投資家</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">新しい不動産活用投資として、運営自動化により長期収益が可能。初心者でも安心して始められます。</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+            <i class="fa-solid fa-solar-panel"></i>
+          </div>
+          <h3 class="font-bold text-xl mb-2 text-slate-800">太陽光発電の所有者</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">低圧の太陽光発電をすでに所有しているオーナー様。発電所土地の活用やFIT終了後の更新運営に。</p>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="landArea">概算土地面積（坪） *</label>
-      <input type="text" id="landArea" required placeholder="例：100">
+  </section>
+
+  <!-- Business Overview -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">なぜ今、低圧蓄電池用地なのか？</h2>
+        <p class="text-gray-600">化石燃料の抑制・余剰電力の活用など社会性の高い商材として、電気の強みをPRできる事業です。</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">1</div>
+          <h3 class="font-bold text-xl mb-2 text-slate-800">狭小地・不整形地でも可</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">住宅が建てにくい変形地や、わずか数坪の土地でも蓄電池設備の設置が可能です。</p>
+        </div>
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">2</div>
+          <h3 class="font-bold text-xl mb-2 text-slate-800">長期安定収入</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">長期賃貸借契約または買い取りにより、使い道のなかった土地から確実な収益を生み出します。</p>
+        </div>
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+          <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">3</div>
+          <h3 class="font-bold text-xl mb-2 text-slate-800">スピーディな事前査定</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">情報をご提供いただいてから、電力系統の状況や立地条件を迅速に確認・回答いたします。</p>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="landType">地目 *</label>
-      <input type="text" id="landType" required placeholder="例：山林・雑種地">
+  </section>
+
+  <!-- Flow Section -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mb-4">お申し込みから案件完工・運営開始までの流れ</h2>
+        <p class="text-gray-600">運営開始は事前準備から完成までワンストップでサポートします。</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <div class="text-blue-600 font-bold text-sm mb-1">STEP 01</div>
+          <h3 class="font-bold text-lg mb-2">土地情報のご申請</h3>
+          <p class="text-gray-600 text-xs leading-relaxed">本フォームより土地スペックおよび参考資料をご提出いただきます。</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <div class="text-blue-600 font-bold text-sm mb-1">STEP 02</div>
+          <h3 class="font-bold text-lg mb-2">系統接続・立地調査</h3>
+          <p class="text-gray-600 text-xs leading-relaxed">電力会社との系統連系可否およびハザード・施工面での調査を実施します。</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <div class="text-blue-600 font-bold text-sm mb-1">STEP 03</div>
+          <h3 class="font-bold text-lg mb-2">ご契約・ID発行</h3>
+          <p class="text-gray-600 text-xs leading-relaxed">条件合意後、土地賃貸借契約または売買契約を締結します。</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <div class="text-blue-600 font-bold text-sm mb-1">STEP 04</div>
+          <h3 class="font-bold text-lg mb-2">着工・運用開始</h3>
+          <p class="text-gray-600 text-xs leading-relaxed">機器設置工事完了後、蓄電池の運用を開始し収益化を実現します。</p>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="landPrice">希望価格 / 賃料 *</label>
-      <input type="text" id="landPrice" required placeholder="例：500万円 または 坪1,000円/月">
+  </section>
+
+  <!-- Partner Callout -->
+  <section class="py-12 bg-blue-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">🏠 不動産業者様・地主様へ（土地持ち込み・パートナー募集）</h2>
+      <p class="text-blue-100 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed mb-6">
+        「3坪〜」「住宅地として売りにくい格安地」「山林・原野・雑種地」など、処分や運用にお困りの土地情報を募集しています。MEIZENの蓄電池ネットワークで「土地＋設備」のセット案件として早期マッチング・現金化をお手伝いします。
+      </p>
+      <a href="#submit-form" class="inline-block bg-white text-blue-900 font-black px-8 py-3.5 rounded-xl shadow-lg hover:bg-blue-50 transition-colors">
+        土地情報の持ち込み・掲載依頼はこちら
+      </a>
     </div>
+  </section>
 
-    <h2>3. 土地属性チェック</h2>
-    <div class="form-group checkbox-group">
-      <label><input type="checkbox" id="attrHazard"> ハザードマップ外</label>
-      <label><input type="checkbox" id="attrFlat"> 平坦地</label>
-      <label><input type="checkbox" id="attrRoad"> 接道3m以上あり</label>
+  <!-- Form Section -->
+  <section id="submit-form" class="py-16 bg-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl shadow-xl p-6 sm:p-10 border border-slate-200">
+        <div class="border-b border-slate-200 pb-6 mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">📍 低圧蓄電池用地 持ち込み受付フォーム</h2>
+          <p class="text-slate-600 text-sm">小規模用地（5〜10坪程度〜）の情報をお寄せください。自動で物件IDが割り振られ、管理データベースへ登録されます。</p>
+        </div>
+
+        <form id="landSubmitForm" class="space-y-8">
+          <!-- 1. 事業者情報 -->
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <span class="w-2 h-5 bg-blue-600 rounded"></span>
+              1. 持ち込み事業者様情報（非公開・内部管理専用）
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="compName">ご担当者名 / 会社名 *</label>
+                <input type="text" id="compName" required placeholder="例：株式会社MEIZEN / 戸上" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="compEmail">連絡先メールアドレス *</label>
+                <input type="email" id="compEmail" required placeholder="例：info@meizen.co.jp" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 土地基本スペック -->
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <span class="w-2 h-5 bg-blue-600 rounded"></span>
+              2. 土地基本スペック
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="landLoc">物件所在地（市町村・大字まで） *</label>
+                <input type="text" id="landLoc" required placeholder="例：熊本県玉名市大倉" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="landArea">概算土地面積（坪） *</label>
+                <input type="text" id="landArea" required placeholder="例：100" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="landType">地目 *</label>
+                <input type="text" id="landType" required placeholder="例：山林・雑種地" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1" for="landPrice">希望価格 / 賃料 *</label>
+                <input type="text" id="landPrice" required placeholder="例：500万円 または 坪1,000円/月" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 土地属性チェック -->
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <span class="w-2 h-5 bg-blue-600 rounded"></span>
+              3. 土地属性チェック
+            </h3>
+            <div class="flex flex-wrap gap-6 mb-4">
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="attrHazard" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <span class="text-sm font-bold text-slate-700">ハザードマップ外</span>
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="attrFlat" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <span class="text-sm font-bold text-slate-700">平坦地</span>
+              </label>
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="attrRoad" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <span class="text-sm font-bold text-slate-700">接道3m以上あり</span>
+              </label>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-slate-700 mb-1" for="neighborDist">隣接住居との距離</label>
+              <input type="text" id="neighborDist" placeholder="例：50m" class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <!-- 4. 内部資料添付 -->
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <span class="w-2 h-5 bg-blue-600 rounded"></span>
+              4. 内部資料添付（登記簿・公図・位置画像・現場写真）
+            </h3>
+            <p class="text-xs text-slate-500 mb-2">※Googleドライブの専用フォルダに安全に保管されます（非公開）</p>
+            <div id="fileDropZone" class="border-2 border-dashed border-blue-400 rounded-xl p-8 text-center bg-blue-50/50 hover:bg-blue-50 transition-colors cursor-pointer">
+              <i class="fa-solid fa-cloud-arrow-up text-4xl text-blue-500 mb-2"></i>
+              <p class="text-sm font-bold text-slate-700">ここに資料（登記簿PDF、公図、位置画像写真など）をドラッグ＆ドロップ</p>
+              <p class="text-xs text-slate-500 mt-1">またはクリックしてファイルを選択</p>
+              <input type="file" id="fileInput" multiple class="hidden">
+            </div>
+            <ul id="fileList" class="mt-3 text-sm text-slate-600 space-y-1 list-disc list-inside"></ul>
+          </div>
+
+          <!-- 送信ボタン -->
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-black text-lg py-4 px-8 rounded-xl shadow-lg transition-all">
+              物件IDを発行して掲載申請する
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="neighborDist">隣接住居との距離</label>
-      <input type="text" id="neighborDist" placeholder="例：50m">
+  </section>
+
+  <!-- Company Info & Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 text-sm border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8 mb-8 pb-8 border-b border-slate-800">
+        <div>
+          <div class="text-white font-bold text-lg mb-2">株式会社MEIZEN</div>
+          <p class="text-xs text-slate-400 mb-1">運営管理：株式会社ワンズエナジー</p>
+          <p class="text-xs text-slate-400 mb-1">契約先・施工：FOUR・SE株式会社</p>
+          <p class="text-xs text-slate-400">営業統括：株式会社MEIZEN</p>
+        </div>
+        <div class="text-xs space-y-1">
+          <p>低圧太陽光発電・系統用蓄電池事業の用地開発および運用管理</p>
+          <p>※掲載されている内容は案件概要およびシミュレーションの目安です。</p>
+        </div>
+      </div>
+      <div class="text-center text-xs">
+        <p>© 株式会社MEIZEN All Rights Reserved.</p>
+      </div>
     </div>
+  </footer>
 
-    <h2>4. 内部資料添付（登記簿・公図・位置画像・現場写真）</h2>
-    <div class="drop-zone" id="fileDropZone">
-      <p>ここに資料（登記簿PDF、公図、位置画像写真など）をドラッグ＆ドロップ<br>またはクリックしてファイル選択</p>
-      <input type="file" id="fileInput" multiple style="display: none;">
-    </div>
-    <ul id="fileList"></ul>
+  <!-- 送信連携JavaScript (GAS通信) -->
+  <script>
+    // 1. ファイルドロップゾーン制御
+    const dropZone = document.getElementById('fileDropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    let selectedFiles = [];
 
-    <button type="submit" class="btn-submit">物件IDを発行して掲載申請する</button>
-  </form>
-</div>
+    if (dropZone && fileInput) {
+      dropZone.addEventListener('click', () => fileInput.click());
+      dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#eff6ff'; });
+      dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#f8fafc'; });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.background = '#f8fafc';
+        handleFiles(e.dataTransfer.files);
+      });
+      fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+    }
 
-<script>
-  // 1. ファイルドロップゾーン制御
-  const dropZone = document.getElementById('fileDropZone');
-  const fileInput = document.getElementById('fileInput');
-  const fileList = document.getElementById('fileList');
-  let selectedFiles = [];
+    function handleFiles(files) {
+      fileList.innerHTML = '';
+      selectedFiles = Array.from(files);
+      selectedFiles.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file.name;
+        fileList.appendChild(li);
+      });
+    }
 
-  if (dropZone && fileInput) {
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#e0f2fe'; });
-    dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#ffffff'; });
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.style.background = '#ffffff';
-      handleFiles(e.dataTransfer.files);
-    });
-    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
-  }
+    // 2. ファイルのBase64変換関数
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve({ name: file.name, type: file.type, base64: reader.result });
+        reader.onerror = error => reject(error);
+      });
+    }
 
-  function handleFiles(files) {
-    fileList.innerHTML = '';
-    selectedFiles = Array.from(files);
-    selectedFiles.forEach(file => {
-      const li = document.createElement('li');
-      li.textContent = file.name;
-      fileList.appendChild(li);
-    });
-  }
+    // 3. フォーム送信処理（GASへデータをPOST送信）
+    const landForm = document.getElementById('landSubmitForm');
+    if (landForm) {
+      landForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "送信中...";
 
-  // 2. ファイルのBase64変換関数
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve({ name: file.name, type: file.type, base64: reader.result });
-      reader.onerror = error => reject(error);
-    });
-  }
+        try {
+          // 土地属性チェックの取得
+          const attrs = [];
+          if (document.getElementById('attrHazard')?.checked) attrs.push('ハザード外');
+          if (document.getElementById('attrFlat')?.checked) attrs.push('平坦地');
+          if (document.getElementById('attrRoad')?.checked) attrs.push('接道3m以上');
 
-  // 3. フォーム送信処理（GASへデータをPOST送信）
-  const landForm = document.getElementById('landSubmitForm');
-  if (landForm) {
-    landForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = this.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = "送信中...";
+          // 添付ファイルのBase64化
+          const fileDataList = await Promise.all(selectedFiles.map(file => fileToBase64(file)));
 
-      try {
-        // 土地属性チェックの取得
-        const attrs = [];
-        if (document.getElementById('attrHazard')?.checked) attrs.push('ハザード外');
-        if (document.getElementById('attrFlat')?.checked) attrs.push('平坦地');
-        if (document.getElementById('attrRoad')?.checked) attrs.push('接道3m以上');
+          // 送信ペイロード構築
+          const payload = {
+            compName: document.getElementById('compName').value,
+            compEmail: document.getElementById('compEmail').value,
+            landLoc: document.getElementById('landLoc').value,
+            landArea: document.getElementById('landArea').value,
+            landType: document.getElementById('landType').value,
+            landPrice: document.getElementById('landPrice').value,
+            attributes: attrs.join(', '),
+            neighborDist: document.getElementById('neighborDist').value,
+            files: fileDataList
+          };
 
-        // 添付ファイルのBase64化
-        const fileDataList = await Promise.all(selectedFiles.map(file => fileToBase64(file)));
+          // GAS Web API URL
+          const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec';
 
-        // 送信ペイロード構築
-        const payload = {
-          compName: document.getElementById('compName').value,
-          compEmail: document.getElementById('compEmail').value,
-          landLoc: document.getElementById('landLoc').value,
-          landArea: document.getElementById('landArea').value,
-          landType: document.getElementById('landType').value,
-          landPrice: document.getElementById('landPrice').value,
-          attributes: attrs.join(', '),
-          neighborDist: document.getElementById('neighborDist').value,
-          files: fileDataList
-        };
+          // 非同期データ送信
+          await fetch(GAS_API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
+          });
 
-        // GAS Web API URL
-        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxyEpZjoAX0kkQHW3H3mcSECF7w3sS0pTrUIODvD-ZrKpXZsVXqY3mfCWotCgFuKuAPqQ/exec';
+          alert('【送信完了】\n物件情報と資料の送信が完了しました。\nスプレッドシートおよびGoogleドライブへ即座に反映されます。');
+          this.reset();
+          fileList.innerHTML = '';
+          selectedFiles = [];
 
-        // 非同期データ送信
-        await fetch(GAS_API_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify(payload)
-        });
-
-        alert('【送信完了】\n物件情報と資料の送信が完了しました。\nスプレッドシートおよびGoogleドライブへ即座に反映されます。');
-        this.reset();
-        fileList.innerHTML = '';
-        selectedFiles = [];
-
-      } catch (err) {
-        alert('送信中にエラーが発生しました: ' + err.message);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "物件IDを発行して掲載申請する";
-      }
-    });
-  }
-</script>
+        } catch (err) {
+          alert('送信中にエラーが発生しました: ' + err.message);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "物件IDを発行して掲載申請する";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
